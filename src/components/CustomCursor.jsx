@@ -12,7 +12,6 @@ const CustomCursor = ({ currentView }) => {
   const ease = 0.3;
 
   // --- LOGIQUE DE COULEUR DYNAMIQUE ---
-  // On définit les classes de couleur selon la page active
   let themeColorClasses = '';
   
   if (currentView === 'model-s') {
@@ -24,7 +23,6 @@ const CustomCursor = ({ currentView }) => {
           ? 'border-orange-500 bg-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.6)]' 
           : 'border-orange-500/80 bg-transparent shadow-[0_0_5px_rgba(249,115,22,0.3)]';
   } else if (currentView === 'contact') {
-      // 👇 AJOUT DU THÈME VIOLET 👇
       themeColorClasses = isHovering 
           ? 'border-violet-500 bg-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.6)]' 
           : 'border-violet-500/80 bg-transparent shadow-[0_0_5px_rgba(139,92,246,0.3)]';
@@ -37,6 +35,10 @@ const CustomCursor = ({ currentView }) => {
 
 
   useEffect(() => {
+    // Optimisation : Si on est sur mobile, on n'attache même pas les écouteurs d'événements
+    // pour économiser les ressources.
+    if (window.matchMedia("(max-width: 1024px)").matches) return;
+
     const onMouseMove = (e) => {
       targetPos.current = { x: e.clientX, y: e.clientY };
 
@@ -79,14 +81,16 @@ const CustomCursor = ({ currentView }) => {
   return (
     <div 
       ref={cursorRef}
-      // On applique les classes de taille + les classes de couleur dynamique calculées au-dessus
-      className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border-2 transition-all duration-200 ease-out
+      // MODIFICATION ICI : Ajout de 'hidden lg:block'
+      // 'hidden' = display: none (mobile par défaut)
+      // 'lg:block' = display: block (écrans > 1024px uniquement)
+      className={`hidden lg:block fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border-2 transition-all duration-200 ease-out
         ${isHovering 
-            ? 'w-12 h-12 -mt-6 -ml-6' // Taille Survol
-            : 'w-6 h-6 -mt-3 -ml-3'   // Taille Normale
+            ? 'w-12 h-12 -mt-6 -ml-6' 
+            : 'w-6 h-6 -mt-3 -ml-3'
         }
-        ${isClicking ? 'scale-75' : 'scale-100'} // Effet de clic
-        ${themeColorClasses} // <--- LES COULEURS SONT ICI
+        ${isClicking ? 'scale-75' : 'scale-100'}
+        ${themeColorClasses}
       `}
       style={{willChange: 'transform'}} 
     ></div>
