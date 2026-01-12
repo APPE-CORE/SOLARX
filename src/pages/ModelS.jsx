@@ -2,7 +2,9 @@ import React from 'react';
 import { 
   ShoppingBag, ChevronRight, ShieldCheck, Activity, 
   Mountain, Wind, Timer, Dna, MapPin, Lock, Fingerprint, 
-  Grip, ArrowRight, Sparkles 
+  Grip, ArrowRight, Sparkles, 
+  // NOUVELLES ICÔNES POUR LA TARIFICATION ELITE :
+  Check, X, Crown, Zap, Truck, RefreshCw, Star, Gem, Minus, AlertCircle
 } from 'lucide-react';
 
 const ModelS = ({ onNavigate }) => {
@@ -470,9 +472,194 @@ const ModelS = ({ onNavigate }) => {
             </div>
         </div>
       </section>
+      {/* =========================================================================
+          6. PRICING ELITE : "THE MASTER CARD" (Final interaction logic)
+          - DOM Order Trick : La carte centrale est placée en premier dans le code (Peer)
+            pour pouvoir contrôler les autres, mais réordonnée visuellement (Order-2).
+          - Center Hover : Grandit + Pousse les voisins (peer-hover).
+          - Sides Hover : Ne grandissent plus, juste un effet de lumière.
+      ========================================================================= */}
+      <section className="py-32 bg-black relative border-t border-white/5 overflow-hidden">
+        
+        {/* FOND : AMBIANCE VOLCANIQUE */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[50vw] bg-rose-900/10 rounded-[100%] blur-[120px] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+            
+            {/* HEADER */}
+            <div className="flex flex-col items-center text-center mb-24">
+                <div className="inline-flex items-center gap-2 px-3 py-1 border border-rose-500/20 rounded-full bg-rose-950/10 text-rose-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-6 backdrop-blur-md">
+                    <Gem size={10} /> Protocoles d'Acquisition
+                </div>
+                <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6 drop-shadow-2xl">
+                    Choisir l'Excellence.
+                </h2>
+                <p className="text-gray-400 max-w-xl mx-auto text-lg font-light leading-relaxed">
+                    L'accès à la Sanguine est limité par la nature. <br/>Choisissez comment vous sécurisez votre allocation.
+                </p>
+            </div>
+
+            {/* GRILLE DES 3 OFFRES */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center mb-24">
+                
+                {/* 1. LE RITUEL (CENTRE - LE MAÎTRE)
+                   - Placé en PREMIER dans le code pour agir comme "Peer".
+                   - Visuellement remis au milieu avec `order-2`.
+                   - Effet : Grandit et active le push des autres.
+                */}
+                <div className="relative order-2 peer bg-[#0f0202] border border-rose-500/50 rounded-3xl p-8 lg:p-10 shadow-[0_0_50px_rgba(225,29,72,0.1)] z-20 flex flex-col h-auto lg:h-[640px] transform transition-all duration-500 ease-out hover:scale-[1.08] hover:-translate-y-4 hover:shadow-[0_0_100px_rgba(225,29,72,0.4)] hover:z-30 group">
+                    
+                    {/* Badge Flottant */}
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-rose-600 text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-rose-900/50 flex items-center gap-2">
+                        <Star size={10} fill="currentColor" /> Recommandé
+                    </div>
+
+                    <div className="mb-8 text-center lg:text-left">
+                        <div className="text-rose-500 font-mono text-xs uppercase tracking-widest mb-2">Abonnement</div>
+                        <h3 className="text-4xl font-bold text-white mb-4 flex items-center gap-2 justify-center lg:justify-start">
+                            Rituel <Crown size={24} className="text-rose-500" fill="currentColor" fillOpacity={0.2} />
+                        </h3>
+                        <div className="flex items-baseline gap-1 mb-6 justify-center lg:justify-start">
+                            <span className="text-6xl font-bold text-white tracking-tighter">45€</span>
+                            <span className="text-gray-400 text-sm">/mois</span>
+                        </div>
+                        <p className="text-rose-100/80 text-sm leading-relaxed mb-8 h-10">
+                            La performance continue. Priorité absolue sur la récolte et logistique froide.
+                        </p>
+                        
+                        {/* BOUTON HERO */}
+                        <button className="relative w-full py-5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-sm uppercase tracking-widest transition-all shadow-lg shadow-rose-900/30 hover:shadow-rose-600/50 hover:scale-[1.02] overflow-hidden group">
+                            <span className="relative z-10 flex items-center justify-center gap-2">Rejoindre le Cercle <ArrowRight size={16} /></span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></div>
+                        </button>
+                        <p className="text-center text-[10px] text-gray-500 mt-3 uppercase tracking-widest">Sans engagement • Annulation 1-click</p>
+                    </div>
+
+                    {/* Features Hero */}
+                    <div className="space-y-5 border-t border-rose-500/10 pt-8 flex-1">
+                        <div className="flex items-center gap-3 text-sm text-white font-medium"><div className="p-1 rounded-full bg-rose-500 text-white"><Check size={12} strokeWidth={3} /></div> <span className="text-rose-400">12 Bouteilles</span> (Allocation Réservée)</div>
+                        <div className="flex items-center gap-3 text-sm text-white font-medium"><div className="p-1 rounded-full bg-rose-500 text-white"><Check size={12} strokeWidth={3} /></div> Livraison Express J+1</div>
+                        <div className="flex items-center gap-3 text-sm text-white font-medium"><div className="p-1 rounded-full bg-rose-500 text-white"><Check size={12} strokeWidth={3} /></div> -18% sur le prix public</div>
+                        <div className="flex items-center gap-3 text-sm text-white font-medium"><div className="p-1 rounded-full bg-rose-500 text-white"><Check size={12} strokeWidth={3} /></div> Accès "Black Batch"</div>
+                        <div className="flex items-center gap-3 text-sm text-white font-medium"><div className="p-1 rounded-full bg-rose-500 text-white"><Check size={12} strokeWidth={3} /></div> Conciergerie 24/7</div>
+                    </div>
+                </div>
+
+                {/* 2. EXPLORATEUR (GAUCHE)
+                   - Visuellement remis à gauche avec `order-1`.
+                   - Réagit au hover du "Peer" (Centre) en s'écartant vers la gauche (-translate-x-6).
+                   - Ne grandit PAS au survol (juste border light).
+                */}
+                <div className="relative order-1 bg-neutral-900/40 backdrop-blur-sm border border-white/5 rounded-3xl p-8 flex flex-col h-auto lg:h-[580px] transition-all duration-500 ease-out hover:bg-neutral-900/80 hover:border-white/20 lg:peer-hover:-translate-x-6 lg:peer-hover:scale-[0.98] lg:peer-hover:opacity-60">
+                    <div className="mb-8">
+                        <div className="text-gray-400 font-mono text-xs uppercase tracking-widest mb-2">Découverte</div>
+                        <h3 className="text-3xl font-bold text-white mb-4">Explorateur</h3>
+                        <div className="flex items-baseline gap-1 mb-6">
+                            <span className="text-4xl font-bold text-white tracking-tighter">55€</span>
+                            <span className="text-gray-500 text-sm">/coffret</span>
+                        </div>
+                        <p className="text-gray-500 text-sm leading-relaxed mb-8 h-10">
+                            Une expédition unique pour comprendre la différence Sanguine.
+                        </p>
+                        <button className="w-full py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold rounded-xl text-xs uppercase tracking-widest transition-all">
+                            Commander (Unique)
+                        </button>
+                    </div>
+                    {/* Features */}
+                    <div className="space-y-4 border-t border-white/5 pt-8 flex-1">
+                        <div className="flex items-center gap-3 text-sm text-gray-300"><div className="p-1 rounded-full bg-white/10"><Check size={10} /></div> 12 Bouteilles (500ml)</div>
+                        <div className="flex items-center gap-3 text-sm text-gray-300"><div className="p-1 rounded-full bg-white/10"><Check size={10} /></div> Livraison Standard</div>
+                        <div className="flex items-center gap-3 text-sm text-gray-500 opacity-50"><div className="p-1 rounded-full bg-white/5"><Minus size={10} /></div> Pas de priorité stock</div>
+                    </div>
+                </div>
+
+                {/* 3. ATHLÈTE (DROITE)
+                   - Visuellement remis à droite avec `order-3`.
+                   - Réagit au hover du "Peer" (Centre) en s'écartant vers la droite (translate-x-6).
+                   - Ne grandit PAS au survol.
+                */}
+                <div className="relative order-3 bg-neutral-900/40 backdrop-blur-sm border border-white/5 rounded-3xl p-8 flex flex-col h-auto lg:h-[580px] transition-all duration-500 ease-out hover:bg-neutral-900/80 hover:border-white/20 lg:peer-hover:translate-x-6 lg:peer-hover:scale-[0.98] lg:peer-hover:opacity-60">
+                    <div className="mb-8">
+                        <div className="text-gray-400 font-mono text-xs uppercase tracking-widest mb-2">Performance</div>
+                        <h3 className="text-3xl font-bold text-white mb-4">Athlète</h3>
+                        <div className="flex items-baseline gap-1 mb-6">
+                            <span className="text-4xl font-bold text-white tracking-tighter">85€</span>
+                            <span className="text-gray-500 text-sm">/mois</span>
+                        </div>
+                        <p className="text-gray-500 text-sm leading-relaxed mb-8 h-10">
+                            Volume doublé pour les régimes à haute intensité et récupération rapide.
+                        </p>
+                        <button className="w-full py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold rounded-xl text-xs uppercase tracking-widest transition-all">
+                            Configurer
+                        </button>
+                    </div>
+                    {/* Features */}
+                    <div className="space-y-4 border-t border-white/5 pt-8 flex-1">
+                        <div className="flex items-center gap-3 text-sm text-gray-300"><div className="p-1 rounded-full bg-white/10"><Check size={10} /></div> <span className="text-white font-bold">24 Bouteilles</span> / Mois</div>
+                        <div className="flex items-center gap-3 text-sm text-gray-300"><div className="p-1 rounded-full bg-white/10"><Check size={10} /></div> Livraison Prioritaire J+1</div>
+                        <div className="flex items-center gap-3 text-sm text-gray-300"><div className="p-1 rounded-full bg-white/10"><Check size={10} /></div> Consultation Nutrition</div>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* TABLEAU DE COMPARAISON TECHNIQUE */}
+            <div className="border border-white/5 rounded-3xl bg-neutral-900/20 overflow-hidden">
+                <div className="bg-white/5 px-8 py-4 border-b border-white/5 flex items-center gap-2">
+                    <Activity size={16} className="text-rose-500"/>
+                    <span className="text-xs font-mono uppercase tracking-widest text-white">Spécifications Techniques Comparées</span>
+                </div>
+                <div className="grid grid-cols-4 text-xs md:text-sm divide-x divide-white/5">
+                    {/* Header Col */}
+                    <div className="col-span-1 p-6 text-gray-500 font-mono hidden md:block">
+                        <div className="h-10 flex items-center">Volume</div>
+                        <div className="h-10 flex items-center">Type de Livraison</div>
+                        <div className="h-10 flex items-center">Priorité Allocation</div>
+                        <div className="h-10 flex items-center">Garantie Fraîcheur</div>
+                    </div>
+                    {/* Explorateur Col */}
+                    <div className="col-span-4 md:col-span-1 p-6 text-center md:text-left">
+                        <div className="font-bold text-white mb-4 block md:hidden">Explorateur</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-gray-400">6 Litres</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-gray-400">Standard (48h)</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-gray-600">Standard</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-gray-400">Satisfait ou Remboursé</div>
+                    </div>
+                    {/* Rituel Col (Highlighted) */}
+                    <div className="col-span-4 md:col-span-1 p-6 bg-rose-900/5 text-center md:text-left relative">
+                        <div className="absolute inset-0 border-x border-rose-500/10 pointer-events-none"></div>
+                        <div className="font-bold text-rose-500 mb-4 block md:hidden">Rituel (Recommandé)</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-white font-bold">6 Litres</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-rose-400 font-bold">Express J+1 (Froid)</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-rose-400 font-bold">Haute (Garanti)</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-white">Remplacement Immédiat</div>
+                    </div>
+                    {/* Elite Col */}
+                    <div className="col-span-4 md:col-span-1 p-6 text-center md:text-left">
+                        <div className="font-bold text-white mb-4 block md:hidden">Athlète</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-white">12 Litres</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-white">Express J+1 (Froid)</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-white">Prioritaire +++</div>
+                        <div className="h-10 flex items-center justify-center md:justify-start text-white">Remplacement Immédiat</div>
+                    </div>
+                </div>
+            </div>
+
+            {/* FOOTER REASSURANCE */}
+            <div className="mt-16 text-center">
+                <div className="inline-flex items-center gap-8 opacity-40 text-[10px] font-mono uppercase tracking-widest text-white">
+                    <span className="flex items-center gap-2"><ShieldCheck size={12}/> Paiement Crypté (Stripe)</span>
+                    <span className="hidden md:flex items-center gap-2"><Truck size={12}/> Chronofresh Certified</span>
+                    <span className="flex items-center gap-2"><RefreshCw size={12}/> Pause à tout moment</span>
+                </div>
+            </div>
+
+        </div>
+      </section>
 
       {/* =========================================================================
-          5. FINALE : "LE MILLÉSIME" (PC OPTIMIZED - ZERO LAG)
+          6. FINALE : "LE MILLÉSIME" (PC OPTIMIZED - ZERO LAG)
           - Problème résolu : Lag sur PC dû au recalcul de l'ombre (box-shadow).
           - Solution : Technique "Phantom Glow". L'ombre intense est une div séparée 
             qui joue sur l'OPACITÉ (géré par le GPU) et non sur le SHADOW (géré par le CPU).
